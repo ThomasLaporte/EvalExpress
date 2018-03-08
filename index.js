@@ -2,24 +2,33 @@ const express = require('express')
 const consolidate = require('consolidate')
 const fs = require('fs')
 const app = express()
+const port = 8000
 
 const db      = require('./helpers/fake-db');
 const devices = require('./helpers/forex.json');
 
-
 app.engine('html', consolidate.mustache);
+
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
-app.use(
-  '/static',
-  express.static(__dirname + '/public')
-)
+app.use('/scripts', express.static(__dirname + '/scripts'));
+app.use('/static',  express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({
   extended: true,
 }))
+
 app.use(express.json())
+
+app.use('/private*', function checkPrivate(req, res) {
+    res.status(403);
+    res.send("<h1>Vous n'avez pas le droit d'accèder à cette page</h1>");
+});
+
+app.use('/', function(req, res) {
+    res.render('welcome.html');
+});
 
 
 app.get('/items', (req, res) => {
@@ -73,23 +82,6 @@ app.get('/items/:devise', (req, res) => {
 })
 
 
-app.get('/item/:id', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Liste</title>
-      </head>
-      <body>
-        <h1>Super Site</h1>
-        <ul>
-          ici item #${req.params.id}
-        </ul>
-      </body>
-    </html>
-  `)
-})
-
 app.post('/items', (req, res) => {
   const inputData = req.body
   console.log('creating', inputData)
@@ -102,7 +94,7 @@ app.use('*', function respond404(req, res) {
   res.status(404).send('Page introuvable')
 })
 
-const port = 8000
+
 
 app.listen(port, err => {
   if (err) {

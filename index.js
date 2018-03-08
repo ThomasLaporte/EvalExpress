@@ -1,5 +1,6 @@
 const express = require('express')
 const consolidate = require('consolidate')
+
 const fs = require('fs')
 const app = express()
 const port = 8000
@@ -25,6 +26,36 @@ app.use('/private*', function checkPrivate(req, res) {
     res.status(403);
     res.send("<h1>Vous n'avez pas le droit d'accèder à cette page</h1>");
 });
+
+let fakeDB = require('./helpers/fake-db.js')
+
+app.get("/detail/:id", (req, res) => {
+
+  let id = req.params.id
+  let getOneItem = fakeDB.getOne(id)
+  let ratesJSON = devices.rates
+  let rates = []
+
+  getOneItem.then(function(value) {
+
+    for (key in ratesJSON)
+    {
+      let convert = value.priceEur * ratesJSON[key]
+      rates.push({"name" : key, "value": convert.toFixed(3)})
+    }
+
+    res.render('layout', {
+      partials: {
+        main: 'devices'
+      },
+      title: value.name,
+      price: value.priceEur,
+      devices: rates
+    })
+
+  })
+
+})
 
 app.get('/items', (req, res) => {
 

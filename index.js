@@ -26,9 +26,6 @@ app.use('/private*', function checkPrivate(req, res) {
     res.send("<h1>Vous n'avez pas le droit d'accèder à cette page</h1>");
 });
 
-
-
-
 app.get('/items', (req, res) => {
 
   let ratesJSON = devices.rates
@@ -41,6 +38,14 @@ app.get('/items', (req, res) => {
   var promise1 = Promise.resolve(db.getAll());
 
   promise1.then(function(value) {
+
+    if(req.query.d !== undefined){
+      var thisdeviceprice = ratesJSON[req.query.d]
+      for( val in value){
+        value[val].priceEur = value[val].priceEur * thisdeviceprice
+        value[val].priceEur = parseFloat(value[val].priceEur).toFixed(2);
+      }
+    }
         res.render('layout', {
           partials: {
             main: 'items',
@@ -52,32 +57,32 @@ app.get('/items', (req, res) => {
   });
 })
 
-app.get('/items/:devise', (req, res) => {
-  let ratesJSON = devices.rates
-  let rates = []
-  for (key in ratesJSON)
-  {
-    rates.push({"name" : key, "value": ratesJSON[key]})
-  }
-
-  var thisdeviceprice = ratesJSON[req.params.devise]
-  var promise1 = Promise.resolve(db.getAll());
-
-  promise1.then(function(value) {
-    for( val in value){
-      value[val].priceEur = value[val].priceEur * thisdeviceprice
-      value[val].priceEur = parseFloat(value[val].priceEur).toFixed(2);
-    }
-    res.render('layout', {
-      partials: {
-        main: 'items',
-      },
-      title: 'Liste des enregistrements',
-      items: value,
-      devises:rates,
-    })
-  });
-})
+// app.get('/items/:devise', (req, res) => {
+//   let ratesJSON = devices.rates
+//   let rates = []
+//   for (key in ratesJSON)
+//   {
+//     rates.push({"name" : key, "value": ratesJSON[key]})
+//   }
+//
+//   var thisdeviceprice = ratesJSON[req.params.devise]
+//   var promise1 = Promise.resolve(db.getAll());
+//
+//   promise1.then(function(value) {
+//     for( val in value){
+//       value[val].priceEur = value[val].priceEur * thisdeviceprice
+//       value[val].priceEur = parseFloat(value[val].priceEur).toFixed(2);
+//     }
+//     res.render('layout', {
+//       partials: {
+//         main: 'items',
+//       },
+//       title: 'Liste des enregistrements',
+//       items: value,
+//       devises:rates,
+//     })
+//   });
+//})
 
 
 app.post('/items', (req, res) => {

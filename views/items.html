@@ -1,26 +1,39 @@
-<form action="/items" method="POST">
-  <input type="submit" value="Ajouter">
-</form>
+<div class="wrapper">
 
-<ul>
-  {{#items}}
-  <li id="{{id}}">
-    <a href="/item/{{id}}">
-      <span id="name">{{name}}</span> /
-      <span id="price">{{priceEur}}</span>
-    </a>
-  </li>
-  {{/items}}
-</ul>
+<hr>
 
+  <div class="convert">
+    <h2>Ajouter un item</h2>
+    <form action="/items" method="POST">
+      <input class="btn-primary" type="submit" value="Ajouter">
+    </form>
+  </div>
+<hr>
+  <div class="results">
+    <h2>Liste des prix</h2>
+    <ul>
+      {{#items}}
+      <li id="{{id}}">
+        <a href="/item/{{id}}">
+          <span>{{name}}</span> /
+          <span>{{priceEur}}</span>
+        </a>
+      </li>
+      {{/items}}
+    </ul>
+  </div>
+<hr>
+  <div class="currency">
+    <h2>Choisir une devise</h2>
+    <ul>
+      {{#devises}}
+      <li id="{{name}}">
+        <a href="/items?d={{name}}">
+          <span>{{name}}</span>
+        </a>
+      </li>
+      {{/devises}}
+    </ul>
+  </div>
 
-<ul>
-  {{#devises}}
-  <li id="{{name}}">
-    <a href="/items/{{name}}">
-      <span id="name">{{name}}</span> /
-      <span id="price">{{value}}</span>
-    </a>
-  </li>
-  {{/devises}}
-</ul>
+</div>

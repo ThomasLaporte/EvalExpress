@@ -16,9 +16,7 @@ app.set('views', __dirname + '/views');
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/static',  express.static(__dirname + '/public'));
 
-app.use(express.urlencoded({
-  extended: true,
-}))
+app.use(express.urlencoded({extended: true}));
 
 app.use(express.json())
 
@@ -27,12 +25,12 @@ app.use('/private*', function checkPrivate(req, res) {
     res.send("<h1>Vous n'avez pas le droit d'accèder à cette page</h1>");
 });
 
-let fakeDB = require('./helpers/fake-db.js')
+
 
 app.get("/detail/:id", (req, res) => {
 
-  let id = req.params.id
-  let getOneItem = fakeDB.getOne(id)
+  let idItems = req.params.id
+  let getOneItem = db.getOne(idItems)
   let ratesJSON = devices.rates
   let rates = []
 

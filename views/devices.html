@@ -1,10 +1,14 @@
-<h1>{{title}}</h1>
-<p>Price : {{price}} €</p>
 
+<div class="convertissor-intro">
+    <h2>{{title}}</h2>    
+    <p>Price : {{price}} €</p>
+ </div>
 
-<h3>Convertissor</h3>
-<ul>
-  {{#devices}}
-  <li>{{name}} - {{value}}</li>
-  {{/devices}}
-</ul>
+<div class="convertissor">
+  <h2>Convertissor</h2>
+  <ul>
+    {{#devices}}
+    <li>{{name}} - {{value}}</li>
+    {{/devices}}
+  </ul>
+</div>

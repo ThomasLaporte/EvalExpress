@@ -86,7 +86,9 @@ hr {
 .results,
 .add-form,
 .convertissor-intro,
-.convertissor {
+.convertissor,
+#countdown,
+footer {
     .flex-center;
 }
 
@@ -236,6 +238,21 @@ body {
             width: 100%;
         }
     }
+}
+
+footer {
+    height: 75px;
+    
+    a {
+        color: @red;
+        font-weight: bold;
+    }
+}
+
+#countdown {
+    width: 100%;
+    font-weight: bold;
+    font-size: 2rem;
 }
 
 @keyframes morgan {

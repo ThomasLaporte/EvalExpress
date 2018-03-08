@@ -122,6 +122,36 @@ app.post('/items', (req, res) => {
   }, 500)
 })
 
+app.get('/add', (req, res) => {
+    res.render('addItem')
+})
+
+function isInt(n){
+    return Number(n) === n && n % 1 === 0;
+}
+
+app.post('/add', function(req, res) {
+
+    if(req.body.nameField != "" && req.body.priceField != "" && isInt(parseInt(req.body.priceField))){
+        console.log("OK")
+        db.add({name:req.body.nameField, priceEur: req.body.priceField})
+            .then(function(){
+                res.render('addItem', {
+                    text: "Ajout effectué avec succés !",
+                    classInfo: "laClasseTrue",
+                })
+            })
+    }
+    else
+    {
+        console.log("!OK")
+        res.render('addItem', {
+            text: "Une erreur a été rencontrée. Merci de vérifier les valeurs que vous avez saisie",
+            classInfo: "laClasseFalse",
+        })
+    }
+})
+
 app.use('/', function(req, res) {
     res.render('welcome.html');
 });
@@ -139,3 +169,4 @@ app.listen(port, err => {
     console.info(`Listening ${port}`)
   }
 })
+

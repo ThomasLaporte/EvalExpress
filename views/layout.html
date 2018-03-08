@@ -1,47 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>{{title}}</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/styles.css">
-
-  <link href="https://fonts.googleapis.com/css?family=Krona+One" rel="stylesheet">
-
-</head>
-
-<body>
-
-
-  <div class="container-fluid">
-
-    <div class="row">
-      {{> header}}
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-sm-7">
-
-        <div class="content_left">
-            {{> main}}
-        </div>
-
-
-      </div>
-
-      <div class="col-12 col-sm-5">
-        {{> navRight}}
-      </div>
-    </div>
-
-
-  </div>
-
-  {{> footer}}
-
-
-
-<script type="text/javascript" src="/static/js/script.js"></script>
-
-</body>
-
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <h1>Super Site</h1>
+    {{> main}}
+    <script src="/static/script.js"></script>
+  </body>
 </html>

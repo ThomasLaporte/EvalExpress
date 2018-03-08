@@ -1,0 +1,26 @@
+<form action="/items" method="POST">
+  <input type="submit" value="Ajouter">
+</form>
+
+<ul>
+  {{#items}}
+  <li id="{{id}}">
+    <a href="/item/{{id}}">
+      <span id="name">{{name}}</span> /
+      <span id="price">{{priceEur}}</span>
+    </a>
+  </li>
+  {{/items}}
+</ul>
+
+
+<ul>
+  {{#devises}}
+  <li id="{{name}}">
+    <a href="/items/{{name}}">
+      <span id="name">{{name}}</span> /
+      <span id="price">{{value}}</span>
+    </a>
+  </li>
+  {{/devises}}
+</ul>

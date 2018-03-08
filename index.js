@@ -26,9 +26,7 @@ app.use('/private*', function checkPrivate(req, res) {
     res.send("<h1>Vous n'avez pas le droit d'accèder à cette page</h1>");
 });
 
-app.use('/', function(req, res) {
-    res.render('welcome.html');
-});
+
 
 
 app.get('/items', (req, res) => {
@@ -89,6 +87,10 @@ app.post('/items', (req, res) => {
     res.redirect('/items')
   }, 500)
 })
+
+app.use('/', function(req, res) {
+    res.render('welcome.html');
+});
 
 app.use('*', function respond404(req, res) {
   res.status(404).send('Page introuvable')

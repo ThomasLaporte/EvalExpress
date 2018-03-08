@@ -1,6 +1,14 @@
 # Doc
 
-_Placez votre doc ici, si besoin._
+Le projet necessite un docker-compose.override.yml contenant : 
+<code>
+version: '3.5'
+
+services:
+  server:
+    user: '1000:1000'
+    command: node_modules/.bin/nodemon index.js
+</code>
 
 # Consignes
 

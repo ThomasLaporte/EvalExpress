@@ -3,10 +3,17 @@
   <head>
     <title>{{title}}</title>
     <link rel="stylesheet" href="/static/style.css">
+    <meta charset="utf-8">
   </head>
   <body>
     <h1>Super Site</h1>
-    {{> main}}
-    <script src="/static/script.js"></script>
+      <div class="wrapper">
+        {{> main}}
+      </div>
+    <script src="/scripts/script.js"></script>
   </body>
+  <footer>
+    <a href="mailto:email@example.com">email@example.com</a>
+  </footer>
+
 </html>

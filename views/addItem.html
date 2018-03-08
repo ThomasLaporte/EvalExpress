@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="style.css">
-        <title>Ajout Produit</title>
-    </head>
-    <body>
-    <h1>Ajout d'un nouveau produit </h1>
-    <div class="wrapper">
-        <div class="add-intro">
-            <h2>title</h2>
-            <button class="btn-primary add"><a href="/">Liste</a></button>
-        </div>
-        <hr>
-        <div class="add-form">
-            <h2>title</h2>
-            <form action="add" method="POST">
-                <input type="text" placeholder="NOM" id="nameField" name="nameField" required>
-                <input type="text" step="0.01" id="priceField" name="priceField" placeholder="PRIX">
-                <input class="btn-primary" type="submit" value="Ajouter">
-                <p class="info "+ {{classInfo}} + "dd">OK</p>
-            </form>
-        </div>
-    </div>
-    </body>
-</html>
+<h1>Ajout d'un nouveau produit </h1>
+
+<div class="add-intro">
+    <button class="btn-primary add"><a href="/items">Liste</a></button>
+</div>
+<hr>
+<div class="add-form">
+    <h2>Formulaire</h2>
+    <form action="add" method="POST">
+        <input type="text" placeholder="NOM" id="nameField" name="nameField" required>
+        <input type="text" step="0.01" id="priceField" name="priceField" placeholder="PRIX">
+        <input class="btn-primary" type="submit" value="Ajouter">
+        <p class="info {{classInfo}}">{{text}}</p>
+    </form>
+</div>

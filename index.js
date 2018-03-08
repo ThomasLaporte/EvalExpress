@@ -25,7 +25,6 @@ app.use(express.json())
 app.get('*', function checkHour(req, res, next) {
     var nextDate = new Date();
 
-    console.log("dezfzefz")
     if (nextDate.getMinutes() > 25 && nextDate.getMinutes() <= 30) {
         res.status(429);
         res.send("<h1>Ce site est trop populaire ! Réessayez plus tard</h1>");
@@ -100,34 +99,6 @@ app.get('/items', (req, res) => {
   });
 })
 
-// app.get('/items/:devise', (req, res) => {
-//   let ratesJSON = devices.rates
-//   let rates = []
-//   for (key in ratesJSON)
-//   {
-//     rates.push({"name" : key, "value": ratesJSON[key]})
-//   }
-//
-//   var thisdeviceprice = ratesJSON[req.params.devise]
-//   var promise1 = Promise.resolve(db.getAll());
-//
-//   promise1.then(function(value) {
-//     for( val in value){
-//       value[val].priceEur = value[val].priceEur * thisdeviceprice
-//       value[val].priceEur = parseFloat(value[val].priceEur).toFixed(2);
-//     }
-//     res.render('layout', {
-//       partials: {
-//         main: 'items',
-//       },
-//       title: 'Liste des enregistrements',
-//       items: value,
-//       devises:rates,
-//     })
-//   });
-//})
-
-
 app.post('/items', (req, res) => {
   const inputData = req.body
   console.log('creating', inputData)
@@ -137,7 +108,12 @@ app.post('/items', (req, res) => {
 })
 
 app.get('/add', (req, res) => {
-    res.render('addItem')
+    res.render('layout', {
+      partials: {
+        main: 'addItem',
+      },
+      title: 'Ajouter un item'
+    })
 })
 
 function isInt(n){
@@ -150,24 +126,38 @@ app.post('/add', function(req, res) {
         console.log("OK")
         db.add({name:req.body.nameField, priceEur: req.body.priceField})
             .then(function(){
-                res.render('addItem', {
-                    text: "Ajout effectué avec succés !",
-                    classInfo: "laClasseTrue",
-                })
+
+              res.render('layout', {
+                partials: {
+                  main: 'addItem',
+                },
+                text: "Ajout effectué avec succés !",
+                classInfo: "success"
+              })
+
             })
     }
     else
     {
         console.log("!OK")
-        res.render('addItem', {
-            text: "Une erreur a été rencontrée. Merci de vérifier les valeurs que vous avez saisie",
-            classInfo: "laClasseFalse",
+        res.render('layout', {
+          partials: {
+            main: 'addItem',
+          },
+          text: "Une erreur a été rencontrée. Merci de vérifier les valeurs que vous avez saisie",
+          classInfo: "alert",
         })
+
     }
 })
 
-app.use('/', function(req, res) {
-    res.render('welcome.html');
+app.use('/', function(req, res) {;
+    res.render('layout', {
+      partials: {
+        main: 'welcome'
+      },
+      title: 'bienvenue'
+    })
 });
 
 app.use('*', function respond404(req, res) {
@@ -183,4 +173,3 @@ app.listen(port, err => {
     console.info(`Listening ${port}`)
   }
 })
-

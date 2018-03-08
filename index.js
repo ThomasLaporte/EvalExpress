@@ -13,12 +13,26 @@ app.engine('html', consolidate.mustache);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
+
+
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/static',  express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({extended: true}));
 
 app.use(express.json())
+
+app.get('*', function checkHour(req, res, next) {
+    var nextDate = new Date();
+
+    console.log("dezfzefz")
+    if (nextDate.getMinutes() > 25 && nextDate.getMinutes() <= 30) {
+        res.status(429);
+        res.send("<h1>Ce site est trop populaire ! Réessayez plus tard</h1>");
+    } else {
+        next();
+    }
+});
 
 app.use('/private*', function checkPrivate(req, res) {
     res.status(403);
